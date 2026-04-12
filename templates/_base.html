@@ -29,6 +29,8 @@
   <!-- Main CSS File -->
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+
 </head>
 
 {% block style %}
@@ -48,7 +50,7 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="{% url 'pages:home' %}" class="active">Home</a></li>
-          <li><a href="#">About</a></li>
+          <li><a href="{% url 'pages:about' %}">About</a></li>
           <li><a href="#">Resume</a></li>
           <!-- <li><a href="#">Services</a></li> -->
           <!-- <li><a href="#">Portfolio</a></li> -->
