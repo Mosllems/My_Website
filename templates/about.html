@@ -74,118 +74,40 @@
     </section>
     <!-- /info Section -->
 
-
+    
     <!-- Skills Section -->
     <section id="skills" class="skills section">
-
         <div class="container section-title" data-aos="fade-up">
             <h2>Skills</h2>
             <div><span>My</span> <span class="description-title">My Skills</span></div>
         </div>
-
-        <div class="container" data-aos="fade-up" data-aos-delay="100">
-
+        {% for category in categories %}
+          <div class="container" data-aos="fade-up" data-aos-delay="100">
             <div class="mb-5">
-            <h5 class="mb-3 text-white border-bottom pb-2">
-                <i class="bi bi-code-slash"></i> Languages & Frameworks
-            </h5>
-            
-            <div class="skills-app-container">
-                
-                <div class="skill-app-item">
-                <div class="skill-app-icon">
-                    <i class="devicon-python-plain colored"></i>
+              <h5 class="mb-3 text-white border-bottom pb-2">
+                  <i class="bi bi-code-slash"></i> {{category.name}}
+              </h5>
+              <div class="skills-app-container">
+                  {% for skill in category.skills.all %}
+                    <div class="skill-app-item">
+                    {% if skill.icon_type == "devicon" %}
+                      <div class="skill-app-icon">
+                        <i class="devicon-{{skill.icon_class}}-plain colored"></i>
+                      </div>
+                    {% elif skill.icon_type == "fa" %}
+                      <div class="skill-app-icon">
+                        <i class="fa-solid fa-{{skill.icon_class}}"></i>
+                      </div>
+                    {% endif %}
+                    <span class="skill-app-name {% if not skill.icon_class %}no-icon{% endif %} ">
+                      {{skill.name}}
+                    </span>
+                    </div>
+                    {% endfor %}
                 </div>
-                <span class="skill-app-name">Python</span>
-                </div>
-
-                <div class="skill-app-item">
-                <div class="skill-app-icon">
-                    <i class="devicon-django-plain colored"></i>
-                </div>
-                <span class="skill-app-name">Django</span>
-                </div>
-
-                <div class="skill-app-item">
-                <div class="skill-app-icon">
-                    <i class="devicon-djangorest-plain colored"></i>
-                </div>
-                <span class="skill-app-name">Django Rest</span>
-                </div>
-
             </div>
-            </div>
-
-            <div class="mb-5">
-            <h5 class="mb-3 text-white border-bottom pb-2">
-                <i class="bi bi-database"></i> Databases
-            </h5>
-            
-            <div class="skills-app-container">
-                
-                <div class="skill-app-item">
-                <div class="skill-app-icon">
-                    <i class="devicon-postgresql-plain colored"></i>
-                </div>
-                <span class="skill-app-name">Postgres</span>
-                </div>
-
-                <div class="skill-app-item">
-                <div class="skill-app-icon">
-                    <i class="devicon-mysql-plain colored"></i>
-                </div>
-                <span class="skill-app-name">MySQL</span>
-                </div>
-
-                <div class="skill-app-item">
-                <div class="skill-app-icon">
-                    <i class="devicon-redis-plain colored"></i>
-                </div>
-                <span class="skill-app-name">Redis</span>
-                </div>
-
-            </div>
-            </div>
-
-            <div class="mb-5">
-            <h5 class="mb-3 text-white border-bottom pb-2">
-                <i class="bi bi-gear"></i> Tools & OS
-            </h5>
-            
-            <div class="skills-app-container">
-                
-                <div class="skill-app-item">
-                <div class="skill-app-icon">
-                    <i class="devicon-docker-plain colored"></i>
-                </div>
-                <span class="skill-app-name">Docker</span>
-                </div>
-
-                <div class="skill-app-item">
-                <div class="skill-app-icon">
-                    <i class="devicon-git-plain colored"></i>
-                </div>
-                <span class="skill-app-name">Git</span>
-                </div>
-
-                <div class="skill-app-item">
-                <div class="skill-app-icon">
-                    <i class="devicon-github-plain colored"></i>
-                </div>
-                <span class="skill-app-name">Github</span>
-                </div>
-
-                <div class="skill-app-item">
-                <div class="skill-app-icon">
-                    <i class="devicon-postman-plain colored"></i>
-                </div>
-                <span class="skill-app-name">P`ostman</span>
-                </div>
-
-            </div>
-            </div>
-
-        </div>
+          </div>
+        {% endfor %}
     </section>
     <!-- Skills Section -->
 
