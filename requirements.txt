@@ -2,6 +2,7 @@ asgiref==3.11.1
 Django==6.0
 environs==15.0.1
 marshmallow==4.3.0
+pillow==12.2.0
 psycopg==3.3.3
 psycopg-binary==3.3.3
 python-dotenv==1.2.2
