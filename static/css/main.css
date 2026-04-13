@@ -873,6 +873,16 @@ section,
     font-size: 2.2rem;
 }
 
+.skill-app-item{
+    transition: all .3s ease;
+}
+
+.skill-app-icon i{
+    color: #18d26e;
+    font-size: 28px;
+    transition: all .3s ease;
+}
+
 .skill-app-name {
     font-size: 1rem;
     font-weight: 700;
@@ -924,6 +934,15 @@ section,
 
 .interests .features-item:hover h3 a {
   color: var(--accent-color);
+}
+
+.features-item i{
+    color: #18d26e;
+    transition: 0.3s;
+}
+
+.features-item:hover i{
+    transform: scale(1.15);
 }
 
 /*--------------------------------------------------------------

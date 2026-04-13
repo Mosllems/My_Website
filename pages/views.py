@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth import get_user_model
-from pages.models import Category, Skill
+from pages.models import Category, Interest
 
 
 User = get_user_model()
@@ -18,5 +18,8 @@ class AboutPageView(generic.TemplateView):
         context = super().get_context_data(**kwargs)
         context['me'] = User.objects.get(username='moslem')
         context['categories'] = Category.objects.prefetch_related("skills").all()
+        context['interests'] = Interest.objects.all()
                 
         return context
+
+

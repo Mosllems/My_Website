@@ -6,9 +6,9 @@ class CustomUser(AbstractUser):
     age = models.DateField(null=True, blank=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     address = models.TextField(blank=True)
-    website = models.URLField(max_length=250, blank=True) 
-    github = models.URLField(max_length=250, blank=True)
-    linkedin = models.URLField(max_length=250, blank=True)
+    website = models.CharField(max_length=250, blank=True) 
+    github = models.CharField(max_length=250, blank=True)
+    linkedin = models.CharField(max_length=250, blank=True)
     bio = models.TextField(blank=True)
 
 
