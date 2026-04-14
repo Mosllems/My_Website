@@ -1,15 +1,4 @@
-/**
-* Template Name: Personal
-* Template URL: https://bootstrapmade.com/personal-free-resume-bootstrap-template/
-* Updated: Mar 05 2025 with Bootstrap v5.3.3
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
 
-/*--------------------------------------------------------------
-# Font & Color Variables
-# Help: https://bootstrapmade.com/color-system/
---------------------------------------------------------------*/
 /* Fonts */
 :root {
   --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -87,56 +76,71 @@ h6 {
   font-family: var(--heading-font);
 }
 
-/* PHP Email Form Messages
-------------------------------*/
-.php-email-form .error-message {
+/* Contact Form Base */
+.contact-form {
+  margin-top: 80px;
+  position: relative;
+}
+
+.contact-form .form-control {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  color: #fff;
+}
+
+.contact-form .form-control:focus {
+  background-color: #1a1a1a;
+  border-color: #059652;
+  box-shadow: none;
+  color: #fff;
+}
+
+.contact-form .form-control::placeholder {
+  color: #aaa;
+}
+
+/* Error */
+.contact-form .error-message {
   display: none;
   background: #df1529;
-  color: #ffffff;
-  text-align: left;
+  color: #fff;
   padding: 15px;
-  margin-bottom: 24px;
+  margin-bottom: 15px;
   font-weight: 600;
+  border-radius: 6px;
 }
 
-.php-email-form .sent-message {
+/* Success */
+.contact-form .sent-message {
   display: none;
-  color: #ffffff;
   background: #059652;
-  text-align: center;
+  color: #fff;
   padding: 15px;
-  margin-bottom: 24px;
+  margin-bottom: 15px;
   font-weight: 600;
+  border-radius: 6px;
 }
 
-.php-email-form .loading {
-  display: none;
-  background: var(--surface-color);
-  text-align: center;
-  padding: 15px;
-  margin-bottom: 24px;
+/* Button */
+.btn-send {
+  background: #059652;
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 6px;
+  transition: 0.3s;
 }
 
-.php-email-form .loading:before {
-  content: "";
-  display: inline-block;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  margin: 0 10px -6px 0;
-  border: 3px solid var(--accent-color);
-  border-top-color: var(--surface-color);
-  animation: php-email-form-loading 1s linear infinite;
+.btn-send:hover {
+  background: #059652;
 }
 
-@keyframes php-email-form-loading {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
+.sitename {
+  font-family: "Great Vibes", cursive;
+  font-size: 34px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  color: var(--heading-color);
 }
 
 /*--------------------------------------------------------------
@@ -149,6 +153,9 @@ h6 {
   padding: 15px 0;
   transition: all 0.5s;
   z-index: 997;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .header .logo {
@@ -835,39 +842,66 @@ section,
 /*--------------------------------------------------------------
 # Skills Section
 --------------------------------------------------------------*/
-.skills .progress {
-  height: 60px;
-  display: block;
-  background: none;
-  border-radius: 0;
+
+.skills-app-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
 }
 
-.skills .progress .skill {
-  color: var(--heading-color);
-  padding: 0;
-  margin: 0 0 6px 0;
-  text-transform: uppercase;
-  display: block;
-  font-weight: 600;
-  font-family: var(--heading-font);
+.skill-app-item {
+    display: flex;
+    align-items: center;
+    background: #292929f9;
+    border: 1px solid #000000;
+    border-radius: 12px;
+    padding: 8px 15px 8px 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-.skills .progress .skill .val {
-  float: right;
-  font-style: normal;
+.skill-app-item:hover {
+    transform: translateX(5px);
+    border-color: #18d26e;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-.skills .progress-bar-wrap {
-  background: color-mix(in srgb, var(--default-color), transparent 90%);
-  height: 10px;
+.skill-app-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
 }
 
-.skills .progress-bar {
-  width: 1px;
-  height: 10px;
-  transition: 0.9s;
-  background-color: var(--accent-color);
+.skill-app-icon i {
+    font-size: 2.2rem;
 }
+
+.skill-app-item{
+    transition: all .3s ease;
+}
+
+.skill-app-icon i{
+    color: #18d26e;
+    font-size: 28px;
+    transition: all .3s ease;
+}
+
+.skill-app-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+.no-icon {
+    width: 100%;
+    text-align: center;
+}
+
 
 /*--------------------------------------------------------------
 # Interests Section
@@ -907,6 +941,15 @@ section,
 
 .interests .features-item:hover h3 a {
   color: var(--accent-color);
+}
+
+.features-item i{
+    color: #18d26e;
+    transition: 0.3s;
+}
+
+.features-item:hover i{
+    transform: scale(1.15);
 }
 
 /*--------------------------------------------------------------
@@ -1009,6 +1052,7 @@ section,
 .resume .resume-item {
   padding: 0 0 20px 20px;
   margin-top: -2px;
+  margin-bottom: 50px;
   border-left: 2px solid var(--accent-color);
   position: relative;
 }
