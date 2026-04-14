@@ -23,6 +23,7 @@ class AboutPageView(generic.TemplateView):
         context['me'] = User.objects.get(username='moslem')
         context['categories'] = Category.objects.prefetch_related("skills").all()
         context['interests'] = Interest.objects.all()
+        context['education'] = Education.objects.order_by('-created_at').first()
                 
         return context
 
