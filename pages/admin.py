@@ -1,5 +1,6 @@
 from django.contrib import admin
-from pages.models import Category, Skill, Interest, Education, Experience
+
+from pages.models import Category, Skill, Interest, Education, Experience, ContactForm
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -33,9 +34,16 @@ class ExperienceAdmin(admin.ModelAdmin):
     search_fields = ["position", "company"]
 
 
+class ContactFormAdmin(admin.ModelAdmin):
+    list_display = ["name", "email", "subject", "created_at"]
+    list_filter = ["name", "email",]
+    list_per_page = 15
+    search_fields = ["name", "email"]
+
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Skill, SkillAdmin)
 admin.site.register(Interest, InterestAdmin)
 admin.site.register(Education, EducationAdmin)
 admin.site.register(Experience, ExperienceAdmin)
+admin.site.register(ContactForm, ContactFormAdmin)

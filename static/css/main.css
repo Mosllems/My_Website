@@ -89,24 +89,74 @@ h6 {
 
 /* PHP Email Form Messages
 ------------------------------*/
-.php-email-form .error-message {
-  display: none;
-  background: #df1529;
-  color: #ffffff;
-  text-align: left;
-  padding: 15px;
-  margin-bottom: 24px;
-  font-weight: 600;
+/* Contact Form Base */
+.contact-form {
+  margin-top: 80px;
+  position: relative;
 }
 
-.php-email-form .sent-message {
+.contact-form .form-control {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  color: #fff;
+}
+
+.contact-form .form-control:focus {
+  background-color: #1a1a1a;
+  border-color: #059652;
+  box-shadow: none;
+  color: #fff;
+}
+
+.contact-form .form-control::placeholder {
+  color: #aaa;
+}
+
+/* Loading */
+.contact-form .loading {
   display: none;
-  color: #ffffff;
-  background: #059652;
+  background: #333;
+  color: #fff;
+  padding: 12px;
+  margin-bottom: 15px;
   text-align: center;
+  border-radius: 6px;
+}
+
+/* Error */
+.contact-form .error-message {
+  display: none;
+  background: #df1529;
+  color: #fff;
   padding: 15px;
-  margin-bottom: 24px;
+  margin-bottom: 15px;
   font-weight: 600;
+  border-radius: 6px;
+}
+
+/* Success */
+.contact-form .sent-message {
+  display: none;
+  background: #059652;
+  color: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+/* Button */
+.btn-send {
+  background: #059652;
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.btn-send:hover {
+  background: #059652;
 }
 
 .php-email-form .loading {
