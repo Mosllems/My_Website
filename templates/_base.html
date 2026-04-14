@@ -11,9 +11,7 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="{% static 'img/favicon.ico' %}" rel="icon">
-  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
-
+  <link href="{% static 'img/favicon.jpg' %}" rel="icon">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
@@ -35,6 +33,9 @@
   <!-- Icon Type -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
 </head>
 
 {% block style %}
@@ -47,13 +48,13 @@
 
       <a href="index.html" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.webp" alt=""> -->
-        <h1 class="sitename">Personal</h1>
+        <!-- <img src="{% static 'img/logo1.png' %}" alt=""> -->
+        <h1 class="sitename">Moslem Amiri</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="{% url 'pages:home' %}" class="active">Home</a></li>
+          <li><a href="{% url 'pages:home' %}">Home</a></li>
           <li><a href="{% url 'pages:about' %}">About</a></li>
           <li><a href="{% url 'pages:resume' %}">Resume</a></li>
           <!-- <li><a href="#">Services</a></li> -->
@@ -91,15 +92,13 @@
       <h3 class="sitename">Portfolio</h3>
       <p>I am a tech enthusiast in the field of programming and AI, with a particular interest in development and building products infused with artificial intelligence.</p>
       <div class="social-links d-flex justify-content-center">
-        <a href=""><i class="bi bi-twitter-x"></i></a>
-        <a href=""><i class="bi bi-facebook"></i></a>
-        <a href=""><i class="bi bi-instagram"></i></a>
-        <a href=""><i class="bi bi-skype"></i></a>
-        <a href=""><i class="bi bi-linkedin"></i></a>
+        <a href="https://www.instagram.com/mosllems/"><i class="bi bi-instagram"></i></a>
+        <a href="https://github.com/mosllems"><i class="bi bi-github"></i></a>
+        <a href="https://www.linkedin.com/in/mosllems/"><i class="bi bi-linkedin"></i></a>
       </div>
       <div class="container">
         <div class="copyright">
-          <span>Copyright</span> <strong class="px-1 sitename">Personal</strong> <span>All Rights Reserved</span>
+          <span>All Rights Reserved</span>
         </div>
         <div class="credits">
           <!-- All the links in the footer should remain intact. -->
