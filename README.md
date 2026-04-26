@@ -42,7 +42,7 @@ docker-compose up --build
 > The application will be accessible at `http://localhost:8000`.
 
 ## 👨‍💻 About Me
-I am an ** AI enthusiast and Backend Developer** focused on building scalable systems and process automation.
+I am an **AI enthusiast and Backend Developer** focused on building scalable systems and process automation.
 - 🎓 **Academic Excellence:** Computer Science graduate with a GPA of 19.19/20.
 - ⚡ **Interests:** AI Engineering, Workflow Automation (n8n), and Local LLM implementations.
 - 🛠 **Core Skills:** Python (Django), Docker, PostgreSQL, and Machine Learning.
