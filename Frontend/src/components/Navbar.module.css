@@ -1,0 +1,75 @@
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 5%;
+  background: rgba(13,17,23,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.badge {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.links a {
+  font-size: 0.85rem;
+  color: var(--text2);
+  transition: color 0.2s;
+}
+
+.links a:hover,
+.links .active {
+  color: var(--orange);
+}
+
+.talkBtn {
+  padding: 0.55rem 1.4rem;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  box-shadow: 0 0 20px rgba(255,107,43,0.3);
+}
+
+.talkBtn:hover {
+  background: var(--orange2);
+  transform: translateY(-1px);
+  box-shadow: 0 0 30px rgba(255,107,43,0.45);
+}
+
+@media (max-width: 768px) {
+  .links { display: none; }
+  .nav   { padding: 1rem 4%; }
+}
