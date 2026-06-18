@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as THREE from 'three'
+import { getProfile, getEducation, getExperience } from '../api/index'
 import styles from './Resume.module.css'
 
 // Placeholders — replace with API data once backend is ready
@@ -76,7 +77,7 @@ function useThreeBackground(canvasRef) {
   }, [canvasRef])
 }
 
-function useScrollReveal() {
+function useScrollReveal(deps = []) {
   useEffect(() => {
     const io = new IntersectionObserver(
       entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on') }),
@@ -84,8 +85,10 @@ function useScrollReveal() {
     )
     document.querySelectorAll('.fi').forEach(el => io.observe(el))
     return () => io.disconnect()
-  }, [])
+  }, deps) // eslint-disable-line react-hooks/exhaustive-deps
 }
+
+const year = date => (date ? String(date).slice(0, 4) : '')
 
 export default function Resume() {
   const canvasRef = useRef(null)
@@ -94,15 +97,21 @@ export default function Resume() {
   const [experience, setExperience] = useState(MOCK_EXPERIENCE)
 
   useThreeBackground(canvasRef)
-  useScrollReveal()
+  useScrollReveal([education])
 
-  // Uncomment when backend is ready:
-  // useEffect(() => {
-  //   getResumeInfo().then(res => {
-  //     setMe(res.data.me)
-  //     setEducation(res.data.education)
-  //   }).catch(console.error)
-  // }, [])
+  useEffect(() => {
+    getProfile()
+      .then(res => setMe(res.data))
+      .catch(() => {})
+
+    getEducation()
+      .then(res => { if (res.data.length) setEducation(res.data) })
+      .catch(() => {})
+
+    getExperience()
+      .then(res => { if (res.data.length) setExperience(res.data) })
+      .catch(() => {})
+  }, [])
 
   return (
     <>
@@ -151,7 +160,7 @@ export default function Resume() {
                   <ul className={styles.eduList}>
                     <li><strong>Major:</strong> {edu.major}</li>
                     <li>
-                      <strong>Years:</strong> {edu.start_date} – {edu.is_current ? 'Present' : edu.end_date}
+                      <strong>Years:</strong> {year(edu.start_date)} – {edu.is_current ? 'Present' : year(edu.end_date)}
                     </li>
                     <li><strong>Institution:</strong> {edu.institution}</li>
                     <li><strong>Location:</strong> {edu.location}</li>
@@ -163,8 +172,8 @@ export default function Resume() {
 
             </div>
 
-            {/* RIGHT COLUMN — Professional Experience */}
-            <div className={styles.col}>
+            {/* RIGHT COLUMN — Professional Experience (hidden until backend data is ready) */}
+            {/* <div className={styles.col}>
               <h3 className={`${styles.colTitle} fi`}>Professional Experience</h3>
               {experience.length === 0 ? (
                 <div className={`${styles.resumeItem} ${styles.emptyItem} fi d1`}>
@@ -177,20 +186,22 @@ export default function Resume() {
                     <ul className={styles.eduList}>
                       <li><strong>Company:</strong> {exp.company}</li>
                       <li>
-                        <strong>Years:</strong> {exp.start_date} – {exp.is_current ? 'Present' : exp.end_date}
+                        <strong>Years:</strong> {year(exp.start_date)} – {exp.is_current ? 'Present' : year(exp.end_date)}
                       </li>
                       <li><strong>Location:</strong> {exp.location}</li>
                     </ul>
-                    {exp.responsibilities.length > 0 && (
+                    {Array.isArray(exp.responsibilities) && exp.responsibilities.length > 0 && (
                       <ul className={styles.respList}>
-                        {exp.responsibilities.map((r, j) => <li key={j}>{r}</li>)}
+                        {exp.responsibilities.map((r, j) => (
+                          <li key={j}>{typeof r === 'string' ? r : JSON.stringify(r)}</li>
+                        ))}
                       </ul>
                     )}
                     {exp.description && <p className={styles.eduDesc}>{exp.description}</p>}
                   </div>
                 ))
               )}
-            </div>
+            </div> */}
 
           </div>
         </section>

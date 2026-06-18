@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as THREE from 'three'
-import { sendContact } from '../api/index'
+import { sendContact, getProfile } from '../api/index'
 import styles from './Contact.module.css'
 
 const MOCK_INFO = {
@@ -113,12 +113,18 @@ const InstagramIcon = () => (
 
 export default function Contact() {
   const canvasRef = useRef(null)
-  const [info]    = useState(MOCK_INFO)
+  const [info, setInfo]     = useState(MOCK_INFO)
   const [form, setForm]     = useState({ name: '', email: '', subject: '', message: '' })
   const [status, setStatus] = useState('idle')
 
   useThreeBackground(canvasRef)
   useScrollReveal()
+
+  useEffect(() => {
+    getProfile()
+      .then(res => setInfo(res.data))
+      .catch(() => {})
+  }, [])
 
   const handleChange = e => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
 
@@ -131,6 +137,8 @@ export default function Contact() {
       setForm({ name: '', email: '', subject: '', message: '' })
     } catch {
       setStatus('error')
+    } finally {
+      setTimeout(() => setStatus('idle'), 3000)
     }
   }
 

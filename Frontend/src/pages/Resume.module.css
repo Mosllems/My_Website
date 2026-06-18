@@ -36,10 +36,13 @@
 /* TWO-COLUMN GRID */
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 3rem;
   align-items: start;
+  max-width: 680px;
 }
+
+.col { display: flex; flex-direction: column; }
 
 /* COLUMN TITLE */
 .colTitle {
@@ -87,6 +90,8 @@
 }
 
 /* SUMMARY */
+.summaryItem { border-left: 3px solid var(--orange); }
+
 .summaryBio {
   font-size: .85rem;
   color: var(--text2);

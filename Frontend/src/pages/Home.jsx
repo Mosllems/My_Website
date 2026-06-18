@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as THREE from 'three'
-import { getFeaturedProjects, getSkills } from '../api/index'
+import { getSkills, getProfile } from '../api/index'
 import styles from './Home.module.css'
 
 const MOCK_PROJECTS = [
-  { id: 1, name: 'Project Alpha',  description: 'Django REST API backend with AI integration. Placeholder — add your first real project here.', tags: ['Python','Django','DRF'],    github: '#', live: '#' },
-  { id: 2, name: 'Project Beta',   description: 'ML model integrated with a web interface. Placeholder — replace with your second project.',    tags: ['AI/ML','Python','FastAPI'], github: '#', live: '#' },
-  { id: 3, name: 'Project Gamma',  description: 'Full-stack web app with Django backend. Placeholder — swap with your third project.',           tags: ['Django','PostgreSQL','Docker'], github: '#', live: '#' },
+  { id: 1, name: 'Project Alpha', description: 'Django REST API backend with AI integration.',               tags: ['Python','Django','DRF'],           github: '#', live: '#' },
+  { id: 2, name: 'Project Beta',  description: 'ML model integrated with a web interface.',                  tags: ['AI/ML','Python','FastAPI'],         github: '#', live: '#' },
+  { id: 3, name: 'Project Gamma', description: 'Full-stack web app with Django + PostgreSQL backend.',       tags: ['Django','PostgreSQL','Docker'],     github: '#', live: '#' },
+  { id: 4, name: 'Project Delta', description: 'AI-powered data pipeline with automated analysis reports.', tags: ['Python','AI/ML','PostgreSQL'],      github: '#', live: '#' },
 ]
 
 const MOCK_SKILLS = [
@@ -78,14 +79,14 @@ function useThreeBackground(canvasRef) {
   }, [canvasRef])
 }
 
-function useScrollReveal() {
+function useScrollReveal(deps = []) {
   useEffect(() => {
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on') })
     }, { threshold: 0.12 })
     document.querySelectorAll('.fi').forEach(el => io.observe(el))
     return () => io.disconnect()
-  }, [])
+  }, deps) // eslint-disable-line react-hooks/exhaustive-deps
 }
 
 const GithubIcon = () => (
@@ -107,13 +108,30 @@ const DownloadIcon = () => (
   </svg>
 )
 
+const SERVICES = [
+  { title: 'Backend Development', desc: 'Scalable, secure Django backends with clean architecture, authentication, and well-designed database schemas ready for production.' },
+  { title: 'AI Integration',      desc: 'Integrating ML models and AI capabilities into web applications — intelligent APIs, data pipelines, and smart automation.' },
+  { title: 'RESTful APIs',        desc: 'Clean, documented REST APIs powering web and mobile apps — proper versioning, rate limiting, and authentication built-in.' },
+  { title: 'DevOps & Deployment', desc: 'Containerized deployments with Docker, Nginx, and CI/CD pipelines — taking your backend from local to production seamlessly.' },
+]
+
 export default function Home() {
   const canvasRef = useRef(null)
   const [projects, setProjects] = useState(MOCK_PROJECTS)
   const [skills,   setSkills]   = useState(MOCK_SKILLS)
+  const [me,       setMe]       = useState({})
 
   useThreeBackground(canvasRef)
-  useScrollReveal()
+  useScrollReveal([skills])
+
+  useEffect(() => {
+    getSkills()
+      .then(res => { if (res.data.length) setSkills(res.data) })
+      .catch(() => {})
+    getProfile()
+      .then(res => setMe(res.data))
+      .catch(() => {})
+  }, [])
 
   return (
     <>
@@ -127,15 +145,13 @@ export default function Home() {
           <div className={styles.avRing}>
             <span className={styles.avInitials}>MA</span>
           </div>
-          <p className={styles.avCaption}>* Replace with your photo</p>
         </div>
 
         <div className={styles.aboutText}>
-          <span className={`${styles.aboutTag} fi`}>About Me</span>
 
           <h1 className={`${styles.headline} fi d1`}>
-            Building backends that<br />
-            <em>power great products</em>
+            Crafting <em>intelligent backends</em><br />
+            that power great products
           </h1>
 
           <p className={`${styles.bio} fi d2`}>
@@ -176,11 +192,14 @@ export default function Home() {
           <p>Technologies and tools I use to build robust backend systems and AI-powered applications.</p>
         </div>
         <div className={styles.skillsGrid}>
-          {skills.map((s, i) => (
-            <div key={s.id} className={`${styles.skillCard} fi d${(i % 4) + 1}`}>
+          {skills.slice(0, 7).map((s, i) => (
+            <div key={s.id} className={`${styles.skillCard} fi d${i + 1}`}>
               <div className={styles.skillName}>{s.name}</div>
             </div>
           ))}
+        </div>
+        <div className={styles.seeAll}>
+          <Link to="/about" className="btn-out">See All Skills →</Link>
         </div>
       </section>
 
@@ -193,15 +212,8 @@ export default function Home() {
           <p>What I can build for you — from scalable APIs to AI-integrated web systems.</p>
         </div>
         <div className={styles.servicesGrid}>
-          {[
-            { title: 'Backend Development', desc: 'Scalable, secure Django backends with clean architecture, authentication, and well-designed database schemas ready for production.' },
-            { title: 'AI Integration',      desc: 'Integrating ML models and AI capabilities into web applications — intelligent APIs, data pipelines, and smart automation.' },
-            { title: 'RESTful APIs',         desc: 'Clean, documented REST APIs powering web and mobile apps — proper versioning, rate limiting, and authentication built-in.' },
-          ].map((svc, i) => (
-            <div key={svc.title} className={`${styles.svcCard} fi d${i + 1}`}>
-              <div className={styles.svcImg}>
-                <div className={styles.svcArrow}>→</div>
-              </div>
+          {SERVICES.map((svc, i) => (
+            <div key={svc.title} className={`${styles.svcCard} fi d${(i % 4) + 1}`}>
               <div className={styles.svcBody}>
                 <h3 className={styles.svcTitle}>{svc.title}</h3>
                 <p className={styles.svcDesc}>{svc.desc}</p>

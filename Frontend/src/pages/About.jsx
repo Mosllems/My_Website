@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as THREE from 'three'
-import { getAboutInfo } from '../api/index'
+import { getProfile, getSkills, getInterests, getEducation } from '../api/index'
 import styles from './About.module.css'
 
 // Placeholders — replace with API data once backend is ready
 const MOCK_ME = {
-  birthday:     '-- / -- / ----',
+  age:          '-- / -- / ----',
   email:        'your@email.com',
   website:      'moslem.dev',
   linkedin:     'in/mosllems',
@@ -77,7 +77,7 @@ function useThreeBackground(canvasRef) {
   }, [canvasRef])
 }
 
-function useScrollReveal() {
+function useScrollReveal(deps = []) {
   useEffect(() => {
     const io = new IntersectionObserver(
       entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on') }),
@@ -85,7 +85,17 @@ function useScrollReveal() {
     )
     document.querySelectorAll('.fi').forEach(el => io.observe(el))
     return () => io.disconnect()
-  }, [])
+  }, deps) // eslint-disable-line react-hooks/exhaustive-deps
+}
+
+function groupSkillsByCategory(skills) {
+  const map = {}
+  skills.forEach(skill => {
+    const cat = skill.category
+    if (!map[cat.id]) map[cat.id] = { id: cat.id, name: cat.name, skills: [] }
+    map[cat.id].skills.push(skill)
+  })
+  return Object.values(map)
 }
 
 export default function About() {
@@ -93,22 +103,39 @@ export default function About() {
   const [me,         setMe]         = useState(MOCK_ME)
   const [categories, setCategories] = useState(MOCK_CATEGORIES)
   const [interests,  setInterests]  = useState(MOCK_INTERESTS)
+  const [degree,     setDegree]     = useState('Computer Engineering')
 
   useThreeBackground(canvasRef)
-  useScrollReveal()
+  useScrollReveal([categories, interests])
 
-  // Uncomment when backend is ready:
-  // useEffect(() => {
-  //   getAboutInfo().then(res => {
-  //     setMe(res.data.me)
-  //     setCategories(res.data.categories)
-  //     setInterests(res.data.interests)
-  //   }).catch(console.error)
-  // }, [])
+  useEffect(() => {
+    getProfile()
+      .then(res => setMe(res.data))
+      .catch(() => {})
+
+    getSkills()
+      .then(res => { if (res.data.length) setCategories(groupSkillsByCategory(res.data)) })
+      .catch(() => {})
+
+    getInterests()
+      .then(res => { if (res.data.length) setInterests(res.data) })
+      .catch(() => {})
+
+    getEducation()
+      .then(res => {
+        if (res.data.length) {
+          const latest = res.data.reduce((a, b) =>
+            new Date(b.end_date || '9999') > new Date(a.end_date || '9999') ? b : a
+          )
+          setDegree(latest.degree)
+        }
+      })
+      .catch(() => {})
+  }, [])
 
   const infoRows = [
-    ['Birthday', me.birthday],
-    ['Degree',   me.degree],
+    ['Birthday', me.age],
+    ['Degree',   degree],
     ['Email',    me.email],
     ['Phone',    me.phone_number],
     ['Website',  me.website],

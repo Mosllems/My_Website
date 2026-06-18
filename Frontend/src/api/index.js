@@ -7,11 +7,11 @@ const api = axios.create({
   timeout: 10000,
 })
 
-export const getHomeInfo         = () => api.get('/home/')
-export const getAboutInfo        = () => api.get('/about/')
-export const getProjects         = () => api.get('/projects/')
-export const getFeaturedProjects = () => api.get('/projects/?featured=true')
-export const getSkills           = () => api.get('/skills/')
-export const sendContact         = (data) => api.post('/contact/', data)
+export const getProfile    = ()     => api.get('/profile/')
+export const getSkills     = ()     => api.get('/skills/')
+export const getInterests  = ()     => api.get('/interests/')
+export const getEducation  = ()     => api.get('/education/')
+export const getExperience = ()     => api.get('/experience/')
+export const sendContact   = (data) => api.post('/contact/', data)
 
 export default api
