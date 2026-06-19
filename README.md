@@ -1,30 +1,65 @@
 # Personal Portfolio Website 🚀
 
-This is my personal portfolio website, built with **Django** and fully **Dockerized** for seamless development and deployment. This platform serves as a professional hub to showcase my projects, my background,  technical skills, and backend expertise.
+A full-stack personal portfolio website with a **React** frontend and **Django REST Framework** backend, fully **Dockerized** for seamless development and deployment. Serves as a professional hub to showcase my projects, background, technical skills, and backend expertise.
 
 ## 🛠 Tech Stack
-- **Backend:** Python 3.12, Django 6
-- **Database:** PostgreSQL 15
-- **Infrastructure:** Docker & Docker Compose
-- **OS Base:** Alpine Linux (Optimized for lightweight images)
+
+### Backend
+- **Python 3.12, Django 6** — core framework
+- **Django REST Framework** — RESTful API
+- **djoser + SimpleJWT** — JWT-based authentication
+- **PostgreSQL 15** — relational database
+- **django-cors-headers** — CORS policy management
+- **Docker & Docker Compose** — containerized infrastructure
+- **Alpine Linux** — lightweight OS base image
+
+### Frontend
+- **React 18 + Vite** — fast modern UI
+- **React Router DOM** — client-side navigation
+- **Axios** — HTTP client for API communication
+- **Three.js** — interactive particle background
+- **CSS Modules** — scoped component styling
 
 ## 🌟 Key Features
-- **Multi-stage Docker Builds:** Optimized for performance and small image sizes.
-- **Environment Management:** Secure configuration using `.env` files.
-- **Robust Healthchecks:** Custom logic to ensure PostgreSQL is ready before the Django backend starts.
-- **Security-First:** Runs as a non-root user within the container.
-- **StatReloader:** Real-time code updates during development.
+
+### Frontend
+- **4 Pages:** Home, About, Resume, Contact — all data-driven from the API
+- **Three.js Particle Background** — animated across all pages
+- **Scroll Reveal Animations** — IntersectionObserver-based entrance effects
+- **Mobile Responsive** — hamburger menu, adaptive grids, tested down to 355px
+- **Live Contact Form** — submits to the backend API with auto-dismiss feedback
+
+### Backend & API
+- **RESTful API Endpoints:**
+  - `GET /api/profile/` — public profile info
+  - `GET /api/skills/` — skills with categories
+  - `GET /api/interests/` — personal interests
+  - `GET /api/education/` — education history
+  - `GET /api/experience/` — work experience
+  - `POST /api/contact/` — contact form submissions
+- **JWT Authentication** — secure token-based auth via djoser
+- **Custom Permissions** — `IsAdminOrReadOnly` for all content endpoints
+- **Rate Limiting** — contact form throttled to 10 requests/hour per IP
+- **Public Registration Disabled** — only admins can create accounts
+
+### Infrastructure
+- **Multi-stage Docker Builds** — optimized for performance and small image sizes
+- **Environment Management** — secure configuration using `.env` files
+- **Robust Healthchecks** — PostgreSQL readiness check before Django starts
+- **Security-First** — runs as a non-root user inside the container
+- **Debug Toolbar** — conditionally loaded only when `DEBUG=True`
+- **StatReloader** — real-time code updates during development
 
 ## 🚀 Quick Start (Local Setup)
 
 ### 1. Clone the repository
 ```bash
-git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-cd your-repo-name
+git clone https://github.com/Mosllems/My_Website.git
+cd My_Website
 ```
 
 ### 2. Configure environment variables
-Create a `.env` file in the root directory based on the following template:
+Create a `.env` file in the root directory:
 ```env
 DJANGO_SECRET_KEY=your_secret_key_here
 DJANGO_DEBUG=True
@@ -39,13 +74,33 @@ ALLOWED_HOSTS=localhost,127.0.0.1
 ```bash
 docker-compose up --build
 ```
-> The application will be accessible at `http://localhost:8000`.
+
+| Service | URL |
+|---------|-----|
+| Backend API | http://localhost:8000/api/ |
+| Django Admin | http://localhost:8000/admin/ |
+| Frontend | http://localhost:5173/ |
+
+## 📁 Project Structure
+```
+My_Website/
+├── config/          # Django settings & URLs
+├── accounts/        # Custom user model, profile API
+├── pages/           # Skills, education, experience, contact API
+├── Frontend/        # React + Vite application
+│   └── src/
+│       ├── pages/   # Home, About, Resume, Contact
+│       ├── components/  # Navbar, shared components
+│       └── api/     # Axios API calls
+├── docker-compose.yml
+└── .env
+```
 
 ## 👨‍💻 About Me
 I am an **AI enthusiast and Backend Developer** focused on building scalable systems and process automation.
-- 🎓 **Academic Excellence:** Computer Science graduate with a GPA of 19.19/20.
-- ⚡ **Interests:** AI Engineering, Workflow Automation (n8n), and Local LLM implementations.
-- 🛠 **Core Skills:** Python (Django), Docker, PostgreSQL, and Machine Learning.
+- 🎓 **Academic Excellence:** Computer Engineering graduate with a GPA of 19.19/20
+- ⚡ **Interests:** AI Engineering, Workflow Automation (n8n), and Local LLM implementations
+- 🛠 **Core Skills:** Python (Django), React, Docker, PostgreSQL, and Machine Learning
 
 ---
 Developed with ❤️ by Moslem Amiri
