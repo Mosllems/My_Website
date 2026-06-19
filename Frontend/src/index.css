@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg:      #0d1117;
+  --bg2:     #131921;
+  --bg3:     #1a2235;
+  --card:    #161d2c;
+  --card2:   #1e2840;
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(255,107,43,0.35);
+  --text:    #f0f4ff;
+  --text2:   #8a9ab8;
+  --text3:   #4a5a76;
+  --orange:  #ff6b2b;
+  --orange2: #ff8c5a;
+  --og:      rgba(255,107,43,0.18);
+  --og2:     rgba(255,107,43,0.07);
+  --font:    'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  letter-spacing: -0.01em;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* -- BUTTONS -- */
+.btn-og {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.7rem 1.5rem;
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-family: var(--font);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 0 16px rgba(255,107,43,0.3);
+}
+.btn-og:hover {
+  background: var(--orange2);
+  transform: translateY(-2px);
+  box-shadow: 0 0 28px rgba(255,107,43,0.45);
+}
+
+.btn-out {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.7rem 1.5rem;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50px;
+  font-family: var(--font);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-out:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+/* -- SECTION COMMON -- */
+.section      { padding: 5rem 5%; position: relative; }
+.section-alt  { padding: 5rem 5%; position: relative; background: var(--bg2); }
+
+.sec-head      { text-align: center; margin-bottom: 3rem; }
+.sec-head h2   {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+}
+.sec-head h2 em { color: var(--orange); font-style: normal; }
+.sec-head p {
+  font-size: 0.88rem;
+  color: var(--text2);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* -- SCROLL ANIMATIONS -- */
+.fi {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.fi.on { opacity: 1; transform: translateY(0); }
+.fi.d1 { transition-delay: 0.1s; }
+.fi.d2 { transition-delay: 0.2s; }
+.fi.d3 { transition-delay: 0.3s; }
+.fi.d4 { transition-delay: 0.4s; }

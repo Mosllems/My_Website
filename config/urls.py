@@ -19,12 +19,20 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from debug_toolbar.toolbar import debug_toolbar_urls
 
 admin.site.site_header = 'Admin Pannel'
 admin.site.index_title = 'Special Access'
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("pages.urls")),
-
+    path("api/", include("pages.urls")),
+    path("api/", include("accounts.urls")),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        path("__debug__/", include("debug_toolbar.urls")),
+    ]

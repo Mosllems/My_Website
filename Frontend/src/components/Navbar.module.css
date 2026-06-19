@@ -1,0 +1,133 @@
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 5%;
+  background: rgba(13,17,23,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.badge {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.links a {
+  font-size: 0.85rem;
+  color: var(--text2);
+  transition: color 0.2s;
+}
+
+.links a:hover,
+.links .active {
+  color: var(--orange);
+}
+
+.talkBtn {
+  padding: 0.55rem 1.4rem;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  box-shadow: 0 0 20px rgba(255,107,43,0.3);
+}
+
+.talkBtn:hover {
+  background: var(--orange2);
+  transform: translateY(-1px);
+  box-shadow: 0 0 30px rgba(255,107,43,0.45);
+}
+
+/* BURGER BUTTON */
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 201;
+}
+.bar {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.25s, opacity 0.25s;
+}
+.bar1Open { transform: translateY(7px) rotate(45deg); }
+.bar2Open { opacity: 0; }
+.bar3Open { transform: translateY(-7px) rotate(-45deg); }
+
+/* MOBILE DROPDOWN */
+.mobileMenu {
+  position: absolute;
+  top: 100%;
+  left: 0; right: 0;
+  background: rgba(13,17,23,0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 5%;
+  gap: 0.2rem;
+  z-index: 199;
+}
+.mLink {
+  font-size: 1rem;
+  color: var(--text2);
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+}
+.mActive {
+  font-size: 1rem;
+  color: var(--orange);
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+}
+.mobileMenu .talkBtn {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .links        { display: none; }
+  .talkBtnDesktop { display: none; }
+  .burger       { display: flex; }
+  .nav          { padding: 1rem 4%; }
+}

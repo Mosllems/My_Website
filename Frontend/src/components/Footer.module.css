@@ -1,0 +1,143 @@
+.footer {
+  position: relative;
+  z-index: 1;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 3rem 5% 2rem;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
+  gap: 3rem;
+  margin-bottom: 2.5rem;
+}
+
+/* BRAND */
+.logo {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  margin-bottom: .8rem;
+}
+.logo em {
+  color: var(--orange);
+  font-style: normal;
+}
+
+.bio {
+  font-size: .82rem;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+}
+
+.socials {
+  display: flex;
+  gap: .6rem;
+}
+
+.soc {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text2);
+  transition: all .2s;
+}
+.soc:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: var(--og2);
+  transform: translateY(-2px);
+}
+
+/* COLUMNS */
+.col h4 {
+  font-size: .85rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.col ul {
+  list-style: none;
+}
+
+.col ul li {
+  margin-bottom: .55rem;
+}
+
+.col ul li a {
+  font-size: .82rem;
+  color: var(--text2);
+  transition: color .2s;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+.col ul li a::before {
+  content: '›';
+  color: var(--orange);
+}
+.col ul li a:hover {
+  color: var(--orange);
+}
+
+.contactList p {
+  font-size: .82rem;
+  color: var(--text2);
+  margin-bottom: .55rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+/* BOTTOM */
+.bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.bottom p {
+  font-size: .75rem;
+  color: var(--text3);
+}
+
+.bottom p em {
+  color: var(--orange);
+  font-style: normal;
+}
+
+.bottomLinks {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.bottomLinks a {
+  font-size: .75rem;
+  color: var(--text3);
+  transition: color .2s;
+}
+
+.bottomLinks a:hover {
+  color: var(--orange);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 560px) {
+  .grid   { grid-template-columns: 1fr; gap: 2rem; }
+  .bottom { flex-direction: column; text-align: center; }
+}

@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 from environs import Env
+from datetime import timedelta
+
 
 # for environment variables
 env = Env()
@@ -30,8 +32,8 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DJANGO_DEBUG")
 
-ALLOWED_HOSTS = [os.getenv("ALLOWED_HOSTS")]
-
+ALLOWED_HOSTS = [host.strip() for host in os.getenv("ALLOWED_HOSTS").split(",") if host.strip()]
+    
 
 # Application definition
 
@@ -43,14 +45,18 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
+    "rest_framework",
+    "corsheaders",
+    "djoser",
+
     # local apps
     "accounts",
     "pages",
-
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -58,6 +64,22 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+if DEBUG:
+    INSTALLED_APPS += ["debug_toolbar"]
+    MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+    "::1",
+]
+
+# Show the debug toolbar whenever DEBUG is on, regardless of REMOTE_ADDR.
+# Needed because in Docker the request comes from the bridge gateway IP,
+# not 127.0.0.1, so the default INTERNAL_IPS check never matches.
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK": lambda request: DEBUG,
+}
 
 ROOT_URLCONF = "config.urls"
 
@@ -139,3 +161,36 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 # accounts config
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+
+REST_FRAMEWORK = {
+    "COERCE_DECIMAL_TO_STRING": False,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'contact': '10/hour',
+    },
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME' : timedelta(days=7),
+}
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+DJOSER = {
+    'SERIALIZERS': {
+        'user_create': "accounts.serializers.UserCreateSerializer",
+        'current_user': "accounts.serializers.UserSerializer",
+    },
+    'PERMISSIONS': {
+        'user_create': ['rest_framework.permissions.IsAdminUser'],
+        'user_list':   ['rest_framework.permissions.IsAdminUser'],
+    },
+}
