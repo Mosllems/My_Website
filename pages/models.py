@@ -51,7 +51,7 @@ class Interest(models.Model):
 class Education(models.Model):
     major = models.CharField(max_length=150)
     degree = models.CharField(max_length=150)
-    gpa = models.FloatField()
+    gpa = models.CharField(max_length=10)
     institution = models.CharField(max_length=150)
     location = models.CharField(max_length=150)
     start_date = models.DateField()
