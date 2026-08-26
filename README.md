@@ -1,8 +1,8 @@
-# Personal Portfolio Website 🚀
+# Personal Portfolio Website 
 
 A full-stack personal portfolio website with a **React** frontend and **Django REST Framework** backend, fully **Dockerized** for seamless development and deployment. Serves as a professional hub to showcase my projects, background, technical skills, and backend expertise.
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### Backend
 - **Python 3.12, Django 6** — core framework
@@ -20,7 +20,7 @@ A full-stack personal portfolio website with a **React** frontend and **Django R
 - **Three.js** — interactive particle background
 - **CSS Modules** — scoped component styling
 
-## 🌟 Key Features
+## Key Features
 
 ### Frontend
 - **4 Pages:** Home, About, Resume, Contact — all data-driven from the API
@@ -50,7 +50,7 @@ A full-stack personal portfolio website with a **React** frontend and **Django R
 - **Debug Toolbar** — conditionally loaded only when `DEBUG=True`
 - **StatReloader** — real-time code updates during development
 
-## 🚀 Quick Start (Local Setup)
+## Quick Start (Local Setup)
 
 ### 1. Clone the repository
 ```bash
