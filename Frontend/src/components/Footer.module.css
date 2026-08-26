@@ -137,6 +137,11 @@
   .grid { grid-template-columns: 1fr 1fr; }
 }
 
+@media (max-width: 768px) {
+  /* clearance for the floating bottom nav */
+  .footer { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); }
+}
+
 @media (max-width: 560px) {
   .grid   { grid-template-columns: 1fr; gap: 2rem; }
   .bottom { flex-direction: column; text-align: center; }

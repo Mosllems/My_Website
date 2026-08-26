@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 from rest_framework.routers import DefaultRouter    
 
-# app_name = 'pages' # we must write the apps'name here, because once the project get bigger calling the urls will be harder, and by app name we can distinguish them from eachother
+# app_name = 'pages' # we must write the apps'name here, because once the project gets bigger calling the urls will be harder, and by app name we can distinguish them from eachother
 
 router = DefaultRouter()
 

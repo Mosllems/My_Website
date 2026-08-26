@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Navbar from './components/Navbar'
+import BottomNav from './components/BottomNav'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -28,6 +29,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <BottomNav />
     </BrowserRouter>
   )
 }
