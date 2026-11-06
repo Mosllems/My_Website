@@ -14,7 +14,7 @@ A full-stack personal portfolio website with a **React** frontend and **Django R
 - **Alpine Linux** — lightweight OS base image
 
 ### Frontend
-- **React 18 + Vite** — fast modern UI
+- **React 19 + Vite** — fast modern UI
 - **React Router DOM** — client-side navigation
 - **Axios** — HTTP client for API communication
 - **Three.js** — interactive particle background
