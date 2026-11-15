@@ -72,10 +72,6 @@ export default function Footer() {
 
       <div className={styles.bottom}>
         <p>Copyright &copy; {year} <em>Moslem Amiri</em>. All Rights Reserved.</p>
-        <div className={styles.bottomLinks}>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms &amp; Service</a>
-        </div>
       </div>
     </footer>
   )

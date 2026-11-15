@@ -117,21 +117,6 @@
   font-style: normal;
 }
 
-.bottomLinks {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.bottomLinks a {
-  font-size: .75rem;
-  color: var(--text3);
-  transition: color .2s;
-}
-
-.bottomLinks a:hover {
-  color: var(--orange);
-}
-
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .grid { grid-template-columns: 1fr 1fr; }

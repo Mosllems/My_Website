@@ -146,8 +146,6 @@ export default function Resume() {
                 <h4>{me.first_name} {me.last_name}</h4>
                 <p className={styles.summaryBio}>{me.bio}</p>
                 <ul className={styles.summaryList}>
-                  <li>{me.address}</li>
-                  <li>{me.phone_number}</li>
                   <li>{me.email}</li>
                 </ul>
               </div>

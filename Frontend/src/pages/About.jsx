@@ -134,14 +134,11 @@ export default function About() {
   }, [])
 
   const infoRows = [
-    ['Birthday', me.age],
     ['Degree',   degree],
     ['Email',    me.email],
-    ['Phone',    me.phone_number],
     ['Website',  me.website],
     ['Github',   me.github],
     ['LinkedIn', me.linkedin],
-    ['Address',  me.address],
   ]
 
   return (
@@ -188,7 +185,7 @@ export default function About() {
               </div>
 
               <div className={styles.btns}>
-                <a href="#" className="btn-og">Download CV →</a>
+                <a href="/Moslem-Amiri-CV.pdf" download="Moslem-Amiri-CV.pdf" className="btn-og">Download CV →</a>
                 <Link to="/contact" className="btn-out">Contact Me →</Link>
               </div>
             </div>

@@ -220,6 +220,11 @@
 .projLink  { color: var(--text3); transition: color .2s; padding: .2rem; }
 .projLink:hover { color: var(--orange); }
 .projName  { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; }
+.projNameLink { transition: color .2s; }
+.projCard:hover .projNameLink { color: var(--orange); }
+/* Stretched link: the whole card opens the project's detail page. */
+.projNameLink::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+.projLinks { position: relative; z-index: 2; }   /* GitHub / live icons stay clickable above it */
 .projDesc  { font-size: .82rem; line-height: 1.65; color: var(--text2); margin-bottom: 1.2rem; }
 .projTags  { display: flex; flex-wrap: wrap; gap: .4rem; }
 .ptag {
@@ -253,6 +258,7 @@
   border-radius: 50%;
   background: var(--orange);
   opacity: .04;
+  pointer-events: none;   /* decorative only — it overlaps the buttons on desktop and was swallowing clicks */
 }
 .cta h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: .4rem; letter-spacing: -.02em; }
 .cta p  { font-size: .88rem; color: var(--text2); }
@@ -268,4 +274,5 @@
 @media (max-width: 560px) {
   .hero { padding-left: 4%; padding-right: 4%; }
   .cta  { flex-direction: column; text-align: center; }
+  .ctaBtns { width: 100%; justify-content: center; }
 }

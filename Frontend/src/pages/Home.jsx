@@ -1,15 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as THREE from 'three'
-import { getSkills, getProfile } from '../api/index'
+import { getSkills, getProfile, getProjects } from '../api/index'
 import styles from './Home.module.css'
 
-const MOCK_PROJECTS = [
-  { id: 1, name: 'Project Alpha', description: 'Django REST API backend with AI integration.',               tags: ['Python','Django','DRF'],           github: '#', live: '#' },
-  { id: 2, name: 'Project Beta',  description: 'ML model integrated with a web interface.',                  tags: ['AI/ML','Python','FastAPI'],         github: '#', live: '#' },
-  { id: 3, name: 'Project Gamma', description: 'Full-stack web app with Django + PostgreSQL backend.',       tags: ['Django','PostgreSQL','Docker'],     github: '#', live: '#' },
-  { id: 4, name: 'Project Delta', description: 'AI-powered data pipeline with automated analysis reports.', tags: ['Python','AI/ML','PostgreSQL'],      github: '#', live: '#' },
-]
+const HOME_PROJECTS_COUNT = 4
+const DEFAULT_LINKEDIN = 'https://www.linkedin.com/in/mosllems/'
+
+// Profile stores links like "linkedin.com/in/x" — make them absolute for href.
+const toUrl = value => (!value ? '' : /^https?:\/\//i.test(value) ? value : `https://${value}`)
+
+// Language first, then GitHub topics, without case-insensitive duplicates.
+function projectChips(project) {
+  const seen = new Set()
+  return [project.language, ...(project.tags || [])]
+    .filter(Boolean)
+    .filter(t => (seen.has(t.toLowerCase()) ? false : seen.add(t.toLowerCase())))
+}
 
 const MOCK_SKILLS = [
   { id:1, name:'Python' },    { id:2, name:'Django' },
@@ -117,16 +124,20 @@ const SERVICES = [
 
 export default function Home() {
   const canvasRef = useRef(null)
-  const [projects, setProjects] = useState(MOCK_PROJECTS)
+  const [projects, setProjects] = useState([])
   const [skills,   setSkills]   = useState(MOCK_SKILLS)
   const [me,       setMe]       = useState({})
 
   useThreeBackground(canvasRef)
-  useScrollReveal([skills])
+  useScrollReveal([skills, projects])
 
   useEffect(() => {
     getSkills()
       .then(res => { if (res.data.length) setSkills(res.data) })
+      .catch(() => {})
+    // First page of /projects/ is already in display order (admin "order", then latest push).
+    getProjects()
+      .then(res => setProjects(res.data.results.slice(0, HOME_PROJECTS_COUNT)))
       .catch(() => {})
     getProfile()
       .then(res => setMe(res.data))
@@ -177,7 +188,7 @@ export default function Home() {
           </div>
 
           <div className={`${styles.btns} fi d3`}>
-            <a href="#" className="btn-og"><DownloadIcon /> Download CV</a>
+            <a href="/Moslem-Amiri-CV.pdf" download="Moslem-Amiri-CV.pdf" className="btn-og"><DownloadIcon /> Download CV</a>
             <Link to="/contact" className="btn-out">Contact me →</Link>
           </div>
         </div>
@@ -229,7 +240,7 @@ export default function Home() {
       <section className="section-alt" id="projects">
         <div className="sec-head fi">
           <h2>My <em>Projects</em></h2>
-          <p>A selection of things I've built. More on GitHub.</p>
+          <p>Fresh from my GitHub — the latest things I've put together.</p>
         </div>
         <div className={styles.projGrid}>
           {projects.map((p, i) => (
@@ -237,20 +248,26 @@ export default function Home() {
               <div className={styles.projTop}>
                 <span className={styles.projIco}>{'</>'}</span>
                 <div className={styles.projLinks}>
-                  <a href={p.github} target="_blank" rel="noreferrer" className={styles.projLink}><GithubIcon /></a>
-                  <a href={p.live}   target="_blank" rel="noreferrer" className={styles.projLink}><ExternalIcon /></a>
+                  <a href={p.repository_url} target="_blank" rel="noreferrer" className={styles.projLink}
+                     aria-label={`${p.name} on GitHub`}><GithubIcon /></a>
+                  {p.website_url && (
+                    <a href={p.website_url} target="_blank" rel="noreferrer" className={styles.projLink}
+                       aria-label={`${p.name} live site`}><ExternalIcon /></a>
+                  )}
                 </div>
               </div>
-              <h3 className={styles.projName}>{p.name}</h3>
-              <p className={styles.projDesc}>{p.description}</p>
+              <h3 className={styles.projName}>
+                <Link to={`/projects/${p.id}`} className={styles.projNameLink}>{p.name}</Link>
+              </h3>
+              <p className={styles.projDesc}>{p.short_description || 'No description yet.'}</p>
               <div className={styles.projTags}>
-                {p.tags.map(t => <span key={t} className={styles.ptag}>{t}</span>)}
+                {projectChips(p).map(t => <span key={t} className={styles.ptag}>{t}</span>)}
               </div>
             </div>
           ))}
         </div>
         <div className={styles.seeAll}>
-          <Link to="/resume" className="btn-og">See All Projects →</Link>
+          <Link to="/projects" className="btn-og">See All Projects →</Link>
         </div>
       </section>
 
@@ -264,8 +281,8 @@ export default function Home() {
             <p>Download my resume or reach out directly — I'm open to new opportunities.</p>
           </div>
           <div className={styles.ctaBtns}>
-            <a href="#" className="btn-og"><DownloadIcon /> Download Resume</a>
-            <a href="https://www.linkedin.com/in/mosllems/" target="_blank" rel="noreferrer" className="btn-out">LinkedIn →</a>
+            <a href="/Moslem-Amiri-CV.pdf" download="Moslem-Amiri-CV.pdf" className="btn-og"><DownloadIcon /> Download Resume</a>
+            <a href={toUrl(me.linkedin) || DEFAULT_LINKEDIN} target="_blank" rel="noreferrer" className="btn-out">LinkedIn →</a>
           </div>
         </div>
       </section>

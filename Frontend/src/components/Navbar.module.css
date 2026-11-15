@@ -1,14 +1,21 @@
+/* Floating glass pill — same glassmorphism as the mobile BottomNav. */
 .nav {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1200px, calc(100% - 2rem));
   z-index: 200;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 5%;
-  background: rgba(13,17,23,0.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
+  padding: 0.5rem 0.5rem 0.5rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(22, 29, 44, 0.72);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
 }
 
 .logo {
@@ -72,7 +79,7 @@
 
 @media (max-width: 768px) {
   .links   { display: none; }
-  .nav     { padding: 0.85rem 4%; }
+  .nav     { top: 0.9rem; width: calc(100% - 1.5rem); padding: 0.4rem 0.4rem 0.4rem 0.5rem; }
   .name    { font-size: 0.95rem; }
   .talkBtn { padding: 0.45rem 1rem; font-size: 0.72rem; }
 }

@@ -104,3 +104,44 @@ class ContactForm(models.Model):
 
     def __str__(self):
         return f"Message from {self.name}"
+
+
+
+class Project(models.Model):
+    github_id = models.BigIntegerField(unique=True)
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    repository_url = models.URLField()
+    website_url = models.URLField(blank=True)
+    language = models.CharField(max_length=100, blank=True)
+    stars = models.PositiveIntegerField(default=0)
+    tags = models.JSONField(default=list, blank=True)
+    pushed_at = models.DateTimeField(null=True, blank=True)
+
+    is_visible = models.BooleanField(default=False)
+    is_featured = models.BooleanField(default=False)
+    order = models.PositiveIntegerField(default=0)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['order', '-pushed_at']
+
+    def __str__(self):
+        return self.name
+
+
+class ProjectImage(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="images")
+    image = models.ImageField(upload_to="project_images/")
+    order = models.PositiveIntegerField(default=0)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return f"Image for {self.project.name}"

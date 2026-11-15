@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 import os
+import sys
 from pathlib import Path
 from environs import Env
 from datetime import timedelta
@@ -65,7 +66,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-if DEBUG:
+# Skipped under `manage.py test`: Django forces DEBUG=False there, so the toolbar's
+# URLs (mounted only when DEBUG is on) would be missing and templates would break.
+if DEBUG and "test" not in sys.argv:
     INSTALLED_APPS += ["debug_toolbar"]
     MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 
@@ -86,7 +89,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [str(BASE_DIR.joinpath("templates"))],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -151,7 +154,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
 
 # media
@@ -171,7 +173,11 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'contact': '10/hour',
     },
+    "PAGE_SIZE": 6,
 }
+
+# PAGE_SIZE is global on purpose while pagination is opted into per view.
+SILENCED_SYSTEM_CHECKS = ["rest_framework.W001"]
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
@@ -194,3 +200,7 @@ DJOSER = {
         'user_list':   ['rest_framework.permissions.IsAdminUser'],
     },
 }
+
+# GitHub sync
+GITHUB_USERNAME = env.str("GITHUB_USERNAME", default="Mosllems")
+GITHUB_TOKEN = env.str("GITHUB_TOKEN", default="")

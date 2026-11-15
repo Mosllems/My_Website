@@ -46,3 +46,9 @@
 @media (max-width: 768px) {
   .bar { display: flex; }
 }
+
+/* 5 items: tighten slightly so the bar still fits on ~355px screens */
+@media (max-width: 400px) {
+  .bar  { gap: 0.2rem; padding: 0.35rem; }
+  .item { width: 52px; height: 44px; }
+}

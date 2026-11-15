@@ -13,5 +13,7 @@ export const getInterests  = ()     => api.get('/interests/')
 export const getEducation  = ()     => api.get('/education/')
 export const getExperience = ()     => api.get('/experience/')
 export const sendContact   = (data) => api.post('/contact/', data)
+export const getProjects   = (params = {}, config = {}) => api.get('/projects/', { params, ...config })
+export const getProject    = (id, config = {})          => api.get(`/projects/${id}/`, config)
 
 export default api

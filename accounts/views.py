@@ -11,7 +11,7 @@ class ProfileView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        user = User.objects.filter(username='moslem').first()
+        user = User.objects.filter(is_superuser=True).order_by('id').first()
         if user is None:
             return Response({'detail': 'Profile not found.'}, status=404)
         serializer = PublicProfileSerializer(user)

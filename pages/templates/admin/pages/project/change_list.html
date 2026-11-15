@@ -1,0 +1,41 @@
+{% extends "admin/change_list.html" %}
+
+{% block object-tools-items %}
+  <li>
+    <form method="post" action="{% url 'admin:pages_project_sync_github' %}">
+      {% csrf_token %}
+      <button type="submit" class="sync-github-btn">Sync with GitHub</button>
+    </form>
+  </li>
+  {{ block.super }}
+{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <style>
+    /* Mirror Django's ".object-tools a" + ".addlink" rules so the button matches "Add project". */
+    .object-tools form { display: inline; margin: 0; }
+    .sync-github-btn {
+      font: inherit;              /* buttons don't inherit font family / line-height by default */
+      display: block;
+      float: left;
+      margin: 0;
+      border: 0;
+      border-radius: 15px;
+      padding: 3px 26px 3px 12px;
+      background-color: var(--object-tools-bg);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12a9 9 0 1 1-3-6.7L21 8'/%3E%3Cpath d='M21 3v5h-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 7px center;
+      background-size: 11px 11px;
+      color: var(--object-tools-fg);
+      font-size: 0.6875rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .sync-github-btn:hover,
+    .sync-github-btn:focus { background-color: var(--object-tools-hover-bg); }
+  </style>
+{% endblock %}

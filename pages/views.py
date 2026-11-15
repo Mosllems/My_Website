@@ -1,22 +1,17 @@
-from django.shortcuts import render
-from django.views import generic
-from django.contrib.auth import get_user_model
-from django.urls import reverse_lazy
-
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
+from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.throttling import AnonRateThrottle
+from rest_framework.filters import SearchFilter
+from rest_framework.pagination import PageNumberPagination
 
 
 class ContactThrottle(AnonRateThrottle):
     scope = 'contact'
 
-from pages.models import Category, ContactForm, Interest, Education, Skill, Experience
-from pages.forms import Contact
-from .serializers import CategorySerializer, SkillSerializer, InterestSerializer, EducationSerializer, ExperienceSerializer, ContactFormSerializer
+from pages.models import Category, ContactForm, Interest, Education, Skill, Experience, Project
+from .serializers import CategorySerializer, SkillSerializer, InterestSerializer, EducationSerializer, ExperienceSerializer, ContactFormSerializer, ProjectListSerializer, ProjectDetailSerializer
 from .permissions import IsAdminOrReadOnly
 
-# User = get_user_model()
 
 
 #------------ API Views ------------
@@ -66,49 +61,14 @@ class ContactFormViewSet(ModelViewSet):
         return []
 
 
-# ------------ Template Views ------------
+class ProjectViewSet(ReadOnlyModelViewSet):
+    queryset = Project.objects.filter(is_visible=True).prefetch_related("images")
+    permission_classes = [AllowAny]
+    pagination_class = PageNumberPagination
+    filter_backends = [SearchFilter]
+    search_fields = ["name"]
 
-# class HomePageView(generic.TemplateView):
-#     template_name = "home.html"
-
-
-# class AboutPageView(generic.TemplateView):
-#     template_name = "about.html"
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['me'] = User.objects.get(username='moslem')
-#         context['categories'] = Category.objects.prefetch_related("skills").all()
-#         context['interests'] = Interest.objects.all()
-#         context['education'] = Education.objects.order_by('-created_at').first()
-                
-#         return context
-
-
-# class ResumePageView(generic.TemplateView):
-#     template_name = "resume.html"
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['me'] = User.objects.get(username='moslem')
-#         context['education'] = Education.objects.all()
-
-#         return context
-    
-
-# class ContactPageView(generic.FormView):
-#     template_name = "contact.html"
-#     form_class = Contact
-#     success_url = reverse_lazy("pages:contact")
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['me'] = User.objects.get(username='moslem')
-        
-#         return context
-    
-#     def form_valid(self, form):
-
-#         form.save()
-        
-#         return super().form_valid(form)
+    def get_serializer_class(self):
+        if self.action == "list":
+            return ProjectListSerializer
+        return ProjectDetailSerializer
