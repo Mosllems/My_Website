@@ -7,7 +7,6 @@ import styles from './Contact.module.css'
 const MOCK_INFO = {
   address:      'Iran',
   phone_number: '+98 --- --- ----',
-  email:        'your@email.com',
 }
 
 function useThreeBackground(canvasRef) {
@@ -71,10 +70,10 @@ function useScrollReveal() {
   }, [])
 }
 
-const EmailIcon = () => (
+const LocationIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="22" height="22">
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-    <polyline points="22,6 12,13 2,6"/>
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+    <circle cx="12" cy="10" r="3"/>
   </svg>
 )
 const ShareIcon = () => (
@@ -153,10 +152,10 @@ export default function Contact() {
 
           <div className={styles.infoGrid}>
             <div className={`${styles.infoItem} fi`}>
-              <div className={styles.infoIcon}><EmailIcon /></div>
+              <div className={styles.infoIcon}><LocationIcon /></div>
               <div>
-                <h3>Email</h3>
-                <p>{info.email}</p>
+                <h3>Address</h3>
+                <p>{info.address}</p>
               </div>
             </div>
             <div className={`${styles.infoItem} fi d1`}>
