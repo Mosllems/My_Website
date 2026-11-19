@@ -11,7 +11,6 @@ const MOCK_ME = {
   bio:          "Computer Engineering graduate focused on backend development and AI. Building practical, impactful tech solutions.",
   address:      'Iran',
   phone_number: '+98 --- --- ----',
-  email:        'your@email.com',
 }
 
 const MOCK_EDUCATION = [
@@ -145,9 +144,6 @@ export default function Resume() {
               <div className={`${styles.resumeItem} ${styles.summaryItem} fi d1`}>
                 <h4>{me.first_name} {me.last_name}</h4>
                 <p className={styles.summaryBio}>{me.bio}</p>
-                <ul className={styles.summaryList}>
-                  <li>{me.email}</li>
-                </ul>
               </div>
 
               {/* Education */}

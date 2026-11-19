@@ -19,4 +19,4 @@ class UserSerializer(DjoserUserSerializer):
 class PublicProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'bio','website', 'github', 'linkedin']
+        fields = ['first_name', 'last_name', 'bio','website', 'github', 'linkedin']

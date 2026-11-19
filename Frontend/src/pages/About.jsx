@@ -7,7 +7,6 @@ import styles from './About.module.css'
 // Placeholders — replace with API data once backend is ready
 const MOCK_ME = {
   age:          '-- / -- / ----',
-  email:        'your@email.com',
   website:      'moslem.dev',
   linkedin:     'in/mosllems',
   degree:       'Computer Engineering',
@@ -135,7 +134,6 @@ export default function About() {
 
   const infoRows = [
     ['Degree',   degree],
-    ['Email',    me.email],
     ['Website',  me.website],
     ['Github',   me.github],
     ['LinkedIn', me.linkedin],
